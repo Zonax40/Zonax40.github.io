@@ -1,0 +1,177 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>并发多核_期末复习 | P_Y_个人记录站</title><meta name="author" content="P_Y_"><meta name="copyright" content="P_Y_"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="进展性无死锁：某个申请锁的线程最终会获得锁。 无饥饿：每个申请锁的线程最终都会获得锁。 无锁：调用一个方法的线程中至少有一个最终会返回。 无等待：调用一个方法的所有线程最终都会返回。 共享内存实际上，线性化与顺序一致性用于描述 执行序列(即历史)。 在共享内存中，提到了最特殊的可线性化的寄存器，称为原子寄存器。 安全寄存器： 正则寄存器： 原子寄存器： 第一章讲述了如何从单读单写安全寄存器构建一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发多核_期末复习">
+<meta property="og:url" content="https://zonax40.github.io/2022/12/14/%E5%B9%B6%E5%8F%91%E5%A4%9A%E6%A0%B8-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:site_name" content="P_Y_个人记录站">
+<meta property="og:description" content="进展性无死锁：某个申请锁的线程最终会获得锁。 无饥饿：每个申请锁的线程最终都会获得锁。 无锁：调用一个方法的线程中至少有一个最终会返回。 无等待：调用一个方法的所有线程最终都会返回。 共享内存实际上，线性化与顺序一致性用于描述 执行序列(即历史)。 在共享内存中，提到了最特殊的可线性化的寄存器，称为原子寄存器。 安全寄存器： 正则寄存器： 原子寄存器： 第一章讲述了如何从单读单写安全寄存器构建一个">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Zonax40/Zonax40.github.io/master/img/top_image/997.png">
+<meta property="article:published_time" content="2022-12-14T10:59:02.000Z">
+<meta property="article:modified_time" content="2022-12-14T16:43:16.025Z">
+<meta property="article:author" content="P_Y_">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Zonax40/Zonax40.github.io/master/img/top_image/997.png"><link rel="shortcut icon" href="https://raw.githubusercontent.com/Zonax40/Zonax40.github.io/master/img/favicon.png"><link rel="canonical" href="https://zonax40.github.io/2022/12/14/%E5%B9%B6%E5%8F%91%E5%A4%9A%E6%A0%B8-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '并发多核_期末复习',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-12-15 00:43:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/Zonax40/Zonax40.github.io/master/img/portrait.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://raw.githubusercontent.com/Zonax40/Zonax40.github.io/master/img/top_image/997.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">P_Y_个人记录站</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">并发多核_期末复习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-12-14T10:59:02.000Z" title="发表于 2022-12-14 18:59:02">2022-12-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-12-14T16:43:16.025Z" title="更新于 2022-12-15 00:43:16">2022-12-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="并发多核_期末复习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="进展性"><a href="#进展性" class="headerlink" title="进展性"></a>进展性</h2><p>无死锁：某个申请锁的线程最终会获得锁。</p>
+<p>无饥饿：每个申请锁的线程最终都会获得锁。</p>
+<p>无锁：调用一个方法的线程中至少有一个最终会返回。</p>
+<p>无等待：调用一个方法的所有线程最终都会返回。</p>
+<h1 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h1><p>实际上，线性化与顺序一致性用于描述 执行序列(即历史)。</p>
+<p>在共享内存中，提到了最特殊的可线性化的寄存器，称为原子寄存器。</p>
+<p>安全寄存器：</p>
+<p>正则寄存器：</p>
+<p>原子寄存器：</p>
+<h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>讲述了如何从单读单写安全寄存器构建一个多读单写的原子寄存器</p>
+<h2 id="第二章-原子快照"><a href="#第二章-原子快照" class="headerlink" title="第二章 原子快照"></a>第二章 原子快照</h2><p>在本章中，介绍了无锁的原子快照和无等待的原子快照</p>
+<h1 id="第五讲-共识协议和同步操作原语"><a href="#第五讲-共识协议和同步操作原语" class="headerlink" title="第五讲 共识协议和同步操作原语"></a>第五讲 共识协议和同步操作原语</h1><p>wait-free 的共识协议可以保证每个线程都能在有穷步内终止。一致且有效的共识协议可以保证所有线程在终止时都能得到（即决定）一个相同的值（一致性），而且该值一定是其中某个线程的提议（有效性）。</p>
+<p>共识协议包含2部分，propose和decide，propose用于提出每个线程的建议值，decide决定使用哪个建议值。</p>
+<h2 id="四、共识数概念"><a href="#四、共识数概念" class="headerlink" title="四、共识数概念"></a>四、共识数概念</h2><p>一个对象 X 的共识数为 n，如果它可以用来解决 n 线程的共识问题，但不能解决(n + 1)线程的共识问题。</p>
+<h2 id="七、同步原语"><a href="#七、同步原语" class="headerlink" title="七、同步原语"></a>七、同步原语</h2><p>在处理架构中，原子寄存器的共识数为1，因此需要引入更为强力的，更为高效的同步操作，在这里为同步原语。</p>
+<p>对象为RMWRegister，其方法包含CompareAndSet等。</p>
+<p>注意到CompareAndSet的共识数无限大。这很显然，使用一个初始值为0的RMW寄存器，每一个线程都使用CompareAndSet(0， 线程ID)去争抢，只有一个可以修改成功，而修改成功的那就是决定的线程。</p>
+<h1 id="第六讲-空转锁和争用"><a href="#第六讲-空转锁和争用" class="headerlink" title="第六讲 空转锁和争用"></a>第六讲 空转锁和争用</h1><p>锁包含空转锁(阻塞锁)，非阻塞锁(不空转，休眠)</p>
+<p>普通的空转锁：TAS，TTAS，回退锁(遇忙则等待一段时间再去请求锁)</p>
+<h2 id="四、队列锁-将锁拓展至队列"><a href="#四、队列锁-将锁拓展至队列" class="headerlink" title="四、队列锁(将锁拓展至队列)"></a>四、队列锁(将锁拓展至队列)</h2><h1 id="第七讲-管程和阻塞同步"><a href="#第七讲-管程和阻塞同步" class="headerlink" title="第七讲 管程和阻塞同步"></a>第七讲 管程和阻塞同步</h1><p>可以把锁机制和共享对象（如上述队列）打包，让对象管理自己的同步机制，这就是管程的概念。</p>
+<h2 id="一、管程"><a href="#一、管程" class="headerlink" title="一、管程"></a>一、管程</h2><p>管程包含同步机制、对象和方法，支持对对象（方法）的互斥访问。管程的方法被调用时须获得管程的锁，在调用返回时释放锁。任何时刻至多有一个线程可以持有管程的锁，</p>
+<p>管程所是阻塞锁，强调条件(Condition)</p>
+<h2 id="二、读写锁"><a href="#二、读写锁" class="headerlink" title="二、读写锁"></a>二、读写锁</h2><p>读写锁可能导致写一致饥饿()，所以引入公平读写锁，当有线程申请写锁时，此时读锁只能被释放，而不能被加锁</p>
+<h2 id="三、可重入锁"><a href="#三、可重入锁" class="headerlink" title="三、可重入锁"></a>三、可重入锁</h2><p>保证同一个线程在递归获取锁时，能够获取()</p>
+<h2 id="四、信号量"><a href="#四、信号量" class="headerlink" title="四、信号量"></a>四、信号量</h2><h1 id="第八讲-锁的应用：链表"><a href="#第八讲-锁的应用：链表" class="headerlink" title="第八讲 锁的应用：链表"></a>第八讲 锁的应用：链表</h1><p>包含细粒度锁，乐观锁，惰性锁，无锁链表</p>
+<h1 id="第九讲-并发队列-实际上也可以认为是应用"><a href="#第九讲-并发队列-实际上也可以认为是应用" class="headerlink" title="第九讲 并发队列(实际上也可以认为是应用)"></a>第九讲 并发队列(实际上也可以认为是应用)</h1><h2 id="2-1-部分有界队列"><a href="#2-1-部分有界队列" class="headerlink" title="2.1 部分有界队列"></a>2.1 部分有界队列</h2><p>这里有界是指，当入队失败时不会停止，而是等待</p>
+<h2 id="2-2-无锁的无界队列"><a href="#2-2-无锁的无界队列" class="headerlink" title="2.2 无锁的无界队列"></a>2.2 无锁的无界队列</h2><p><img src="/home/wind/.config/Typora/typora-user-images/image-20221214232459704.png" alt="image-20221214232459704"></p>
+<h2 id="3-1-无界的无锁栈"><a href="#3-1-无界的无锁栈" class="headerlink" title="3.1 无界的无锁栈"></a>3.1 无界的无锁栈</h2><h1 id="第十讲-共享计数"><a href="#第十讲-共享计数" class="headerlink" title="第十讲 共享计数"></a>第十讲 共享计数</h1><h2 id="三、计数网"><a href="#三、计数网" class="headerlink" title="三、计数网"></a>三、计数网</h2><p>计数网基于平衡器，通过构造平衡器实现计数网，概念很简单</p>
+<p>满足步进特性的平衡网称为计数网。</p>
+<p>普通计数网为非线性化的，</p>
+<h3 id="静态一致性"><a href="#静态一致性" class="headerlink" title="静态一致性"></a>静态一致性</h3><p><a target="_blank" rel="noopener" href="https://jnxnj.wordpress.com/2009/01/30/%E7%BA%BF%E6%80%A7%E4%B8%80%E8%87%B4%E6%80%A7linear-consistency%EF%BC%8C%E4%B8%B2%E8%A1%8C%E4%B8%80%E8%87%B4%E6%80%A7%E6%88%96%E9%A1%BA%E5%BA%8F%E4%B8%80%E8%87%B4%E6%80%A7sequential-consistency/">https://jnxnj.wordpress.com/2009/01/30/%E7%BA%BF%E6%80%A7%E4%B8%80%E8%87%B4%E6%80%A7linear-consistency%EF%BC%8C%E4%B8%B2%E8%A1%8C%E4%B8%80%E8%87%B4%E6%80%A7%E6%88%96%E9%A1%BA%E5%BA%8F%E4%B8%80%E8%87%B4%E6%80%A7sequential-consistency/</a></p>
+<p>很清楚的讲解</p>
+<p>没有太理解为什么双跳计数器是静态一致性的</p>
+<h2 id="四、衍射树"><a href="#四、衍射树" class="headerlink" title="四、衍射树"></a>四、衍射树</h2></article><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/Zonax40/Zonax40.github.io/master/img/top_image/997.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/12/14/%E5%B9%B6%E5%8F%91%E5%A4%9A%E6%A0%B8-%E9%A1%BA%E5%BA%8F%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E7%BA%BF%E6%80%A7%E5%8C%96/"><img class="next-cover" src="https://raw.githubusercontent.com/Zonax40/Zonax40.github.io/master/img/top_image/7.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">并发多核_顺序一致性与线性化</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://raw.githubusercontent.com/Zonax40/Zonax40.github.io/master/img/portrait.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">P_Y_</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Zonax40"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Zonax40/" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/pengyu182@mails.ucas.ac.cn" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">个人记录</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E5%B1%95%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">进展性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98"><span class="toc-number"></span> <span class="toc-text">共享内存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="toc-number">1.</span> <span class="toc-text">第一章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E5%8E%9F%E5%AD%90%E5%BF%AB%E7%85%A7"><span class="toc-number">2.</span> <span class="toc-text">第二章 原子快照</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%94%E8%AE%B2-%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%90%8C%E6%AD%A5%E6%93%8D%E4%BD%9C%E5%8E%9F%E8%AF%AD"><span class="toc-number"></span> <span class="toc-text">第五讲 共识协议和同步操作原语</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%85%B1%E8%AF%86%E6%95%B0%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">四、共识数概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%90%8C%E6%AD%A5%E5%8E%9F%E8%AF%AD"><span class="toc-number">2.</span> <span class="toc-text">七、同步原语</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E8%AE%B2-%E7%A9%BA%E8%BD%AC%E9%94%81%E5%92%8C%E4%BA%89%E7%94%A8"><span class="toc-number"></span> <span class="toc-text">第六讲 空转锁和争用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E9%98%9F%E5%88%97%E9%94%81-%E5%B0%86%E9%94%81%E6%8B%93%E5%B1%95%E8%87%B3%E9%98%9F%E5%88%97"><span class="toc-number">1.</span> <span class="toc-text">四、队列锁(将锁拓展至队列)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%83%E8%AE%B2-%E7%AE%A1%E7%A8%8B%E5%92%8C%E9%98%BB%E5%A1%9E%E5%90%8C%E6%AD%A5"><span class="toc-number"></span> <span class="toc-text">第七讲 管程和阻塞同步</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AE%A1%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">一、管程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%AF%BB%E5%86%99%E9%94%81"><span class="toc-number">2.</span> <span class="toc-text">二、读写锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81"><span class="toc-number">3.</span> <span class="toc-text">三、可重入锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="toc-number">4.</span> <span class="toc-text">四、信号量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E8%AE%B2-%E9%94%81%E7%9A%84%E5%BA%94%E7%94%A8%EF%BC%9A%E9%93%BE%E8%A1%A8"><span class="toc-number"></span> <span class="toc-text">第八讲 锁的应用：链表</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B9%9D%E8%AE%B2-%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97-%E5%AE%9E%E9%99%85%E4%B8%8A%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%AE%A4%E4%B8%BA%E6%98%AF%E5%BA%94%E7%94%A8"><span class="toc-number"></span> <span class="toc-text">第九讲 并发队列(实际上也可以认为是应用)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E9%83%A8%E5%88%86%E6%9C%89%E7%95%8C%E9%98%9F%E5%88%97"><span class="toc-number">1.</span> <span class="toc-text">2.1 部分有界队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E6%97%A0%E9%94%81%E7%9A%84%E6%97%A0%E7%95%8C%E9%98%9F%E5%88%97"><span class="toc-number">2.</span> <span class="toc-text">2.2 无锁的无界队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E6%97%A0%E7%95%8C%E7%9A%84%E6%97%A0%E9%94%81%E6%A0%88"><span class="toc-number">3.</span> <span class="toc-text">3.1 无界的无锁栈</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E5%8D%81%E8%AE%B2-%E5%85%B1%E4%BA%AB%E8%AE%A1%E6%95%B0"><span class="toc-number"></span> <span class="toc-text">第十讲 共享计数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E8%AE%A1%E6%95%B0%E7%BD%91"><span class="toc-number">1.</span> <span class="toc-text">三、计数网</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-number">1.1.</span> <span class="toc-text">静态一致性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%A1%8D%E5%B0%84%E6%A0%91"><span class="toc-number">2.</span> <span class="toc-text">四、衍射树</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/12/14/%E5%B9%B6%E5%8F%91%E5%A4%9A%E6%A0%B8-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" title="并发多核_期末复习"><img src="https://raw.githubusercontent.com/Zonax40/Zonax40.github.io/master/img/top_image/997.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="并发多核_期末复习"/></a><div class="content"><a class="title" href="/2022/12/14/%E5%B9%B6%E5%8F%91%E5%A4%9A%E6%A0%B8-%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/" title="并发多核_期末复习">并发多核_期末复习</a><time datetime="2022-12-14T10:59:02.000Z" title="发表于 2022-12-14 18:59:02">2022-12-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/14/%E5%B9%B6%E5%8F%91%E5%A4%9A%E6%A0%B8-%E9%A1%BA%E5%BA%8F%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E7%BA%BF%E6%80%A7%E5%8C%96/" title="并发多核_顺序一致性与线性化"><img src="https://raw.githubusercontent.com/Zonax40/Zonax40.github.io/master/img/top_image/7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="并发多核_顺序一致性与线性化"/></a><div class="content"><a class="title" href="/2022/12/14/%E5%B9%B6%E5%8F%91%E5%A4%9A%E6%A0%B8-%E9%A1%BA%E5%BA%8F%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E7%BA%BF%E6%80%A7%E5%8C%96/" title="并发多核_顺序一致性与线性化">并发多核_顺序一致性与线性化</a><time datetime="2022-12-14T10:56:58.000Z" title="发表于 2022-12-14 18:56:58">2022-12-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/11/%E5%B9%B6%E5%8F%91%E5%A4%9A%E6%A0%B8-%E8%BD%AF%E4%BB%B6%E7%BB%84%E5%90%88%E6%A0%91/" title="并发多核_软件组合树"><img src="https://raw.githubusercontent.com/Zonax40/Zonax40.github.io/master/img/top_image/8.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="并发多核_软件组合树"/></a><div class="content"><a class="title" href="/2022/12/11/%E5%B9%B6%E5%8F%91%E5%A4%9A%E6%A0%B8-%E8%BD%AF%E4%BB%B6%E7%BB%84%E5%90%88%E6%A0%91/" title="并发多核_软件组合树">并发多核_软件组合树</a><time datetime="2022-12-11T06:17:34.000Z" title="发表于 2022-12-11 14:17:34">2022-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/08/ai-%E4%BA%94%E5%AD%90%E6%A3%8B/" title="ai_五子棋"><img src="https://raw.githubusercontent.com/Zonax40/Zonax40.github.io/master/img/top_image/2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ai_五子棋"/></a><div class="content"><a class="title" href="/2022/12/08/ai-%E4%BA%94%E5%AD%90%E6%A3%8B/" title="ai_五子棋">ai_五子棋</a><time datetime="2022-12-08T15:41:08.000Z" title="发表于 2022-12-08 23:41:08">2022-12-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/08/c-vscode-%E5%A4%B4%E6%96%87%E4%BB%B6%E9%97%AE%E9%A2%98/" title="c++_vscode_头文件问题"><img src="https://raw.githubusercontent.com/Zonax40/Zonax40.github.io/master/img/top_image/988.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="c++_vscode_头文件问题"/></a><div class="content"><a class="title" href="/2022/12/08/c-vscode-%E5%A4%B4%E6%96%87%E4%BB%B6%E9%97%AE%E9%A2%98/" title="c++_vscode_头文件问题">c++_vscode_头文件问题</a><time datetime="2022-12-08T08:37:30.000Z" title="发表于 2022-12-08 16:37:30">2022-12-08</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By P_Y_</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
